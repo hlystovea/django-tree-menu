@@ -20,3 +20,40 @@ class Menu(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Item(models.Model):
+    name = models.CharField(
+        verbose_name=_('Имя'),
+        max_length=100,
+        unique=True
+    )
+    slug = models.SlugField(
+        verbose_name=_('Слаг'),
+        unique=True
+    )
+    url = models.URLField(
+        verbose_name=_('Ссылка')
+    )
+    menu = models.ForeignKey(
+        Menu,
+        verbose_name=_('Меню'),
+        related_name='items',
+        on_delete=models.CASCADE
+    )
+    parent_item = models.ForeignKey(
+        'menu.Item',
+        verbose_name=_('Родительский пункт меню'),
+        related_name='items',
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
+
+    class Meta:
+        ordering = ('name', )
+        verbose_name = _('Пункт меню')
+        verbose_name_plural = _('Пункты меню')
+
+    def __str__(self):
+        return f'{self.menu}: {self.name}'

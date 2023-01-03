@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Главная страница{% endblock %}
+{% load draw_menu %}
+{% block content %}
+  <div class="card mb-3 mt-1 shadow-sm">
+    <div class="card-body">
+      {% draw_menu 'main_menu' %}
+      {% draw_menu 'aux_menu' %}
+    </div>
+  </div>
+{% endblock %}

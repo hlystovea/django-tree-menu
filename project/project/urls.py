@@ -4,12 +4,16 @@ from django.contrib import admin
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
+from core.views import IndexPageView
+
 
 admin.site.site_title = _('Древовидное меню')
 admin.site.site_header = _('Древовидное меню')
 admin.site.index_title = _('Администрирование')
 
+
 urlpatterns = [
+    path('', IndexPageView.as_view(), name='index'),
     path('admin/', admin.site.urls),
 ]
 

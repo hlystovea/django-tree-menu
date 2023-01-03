@@ -1,0 +1,8 @@
+<ul>
+  {% for item in items.all %}
+    <li>{{ item.name }}</li>
+    {% if item.items %}
+      {% include 'menu/draw_menu.html' with items=item.items %}
+    {% endif %}
+  {% endfor %}
+</ul>

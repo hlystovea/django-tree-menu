@@ -28,8 +28,7 @@ class Item(models.Model):
         max_length=100
     )
     slug = models.SlugField(
-        verbose_name=_('Слаг'),
-        unique=True
+        verbose_name=_('Слаг')
     )
     menu = models.ForeignKey(
         Menu,

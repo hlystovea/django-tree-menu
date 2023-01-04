@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.8'
 
 services:
   db:
@@ -12,6 +12,33 @@ services:
     env_file:
       - ./.env
 
+  backend:
+    build: .
+    container_name: tree_menu_backend
+    restart: unless-stopped
+    command: gunicorn project.wsgi --bind 0.0.0.0:8000
+    volumes:
+      - static_value:/resource_planner/static/
+      - media_value:/resource_planner/media/
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+
+  nginx:
+    image: nginx:latest
+    container_name: tree_menu_nginx
+    restart: unless-stopped
+    ports:
+      - '8003:8000'
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
+    depends_on:
+      - backend
 
 volumes:
   tree_menu_db:
+  static_value:
+  media_value:

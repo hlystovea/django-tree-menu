@@ -27,7 +27,6 @@ class ItemAdmin(MixinAdmin):
     list_display_links = None
     list_filter = ('menu', )
     list_select_related = ('menu', 'parent')
-    readonly_fields = ('menu', 'parent')
 
     @admin.display(description=_('Меню'))
     def view_menu(self, obj):

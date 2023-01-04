@@ -11,7 +11,7 @@ class ItemInline(admin.TabularInline):
     show_change_link = True
     verbose_name_plural = _('Вложенные пункты меню')
     prepopulated_fields = {'slug': ('name', )}
-    readonly_fields = ('menu', 'parent_item')
+    readonly_fields = ('menu', 'parent')
 
 
 class MixinAdmin(admin.ModelAdmin):
@@ -23,11 +23,11 @@ class MixinAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(MixinAdmin):
-    list_display = ('id', 'name', 'slug', 'view_menu', 'view_parent_item')
+    list_display = ('id', 'name', 'slug', 'view_menu', 'view_parent')
     list_display_links = None
     list_filter = ('menu', )
-    list_select_related = ('menu', 'parent_item')
-    readonly_fields = ('menu', 'parent_item')
+    list_select_related = ('menu', 'parent')
+    readonly_fields = ('menu', 'parent')
 
     @admin.display(description=_('Меню'))
     def view_menu(self, obj):
@@ -42,15 +42,15 @@ class ItemAdmin(MixinAdmin):
         return ''
 
     @admin.display(description=_('Родительский пункт меню'))
-    def view_parent_item(self, obj):
-        if obj.parent_item:
+    def view_parent(self, obj):
+        if obj.parent:
             url = (
                 reverse(
                     'admin:menu_item_change',
-                    args=(obj.parent_item.id, )
+                    args=(obj.parent.id, )
                 )
             )
-            return format_html('<a href="{}">{}</a>', url, obj.parent_item)
+            return format_html('<a href="{}">{}</a>', url, obj.parent)
         return ''
 
     def save_formset(self, request, form, formset, change) -> None:

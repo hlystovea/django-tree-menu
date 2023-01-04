@@ -38,7 +38,7 @@ class Item(models.Model):
         related_name='items',
         on_delete=models.CASCADE
     )
-    parent_item = models.ForeignKey(
+    parent = models.ForeignKey(
         'menu.Item',
         verbose_name=_('Родительский пункт меню'),
         related_name='items',

@@ -1,8 +1,10 @@
 <ul>
-  {% for item in items.all %}
-    <li>{{ item.name }}</li>
-    {% if item.items %}
-      {% include 'menu/draw_menu.html' with items=item.items %}
+  {% for item in items %}
+    {% if item.show %}
+      <li><a href='/?{{ item.menu_slug }}={{ item.slug }}'>{{ item.name }}</a></li>
+      {% if item.items %}
+        {% include 'menu/draw_menu.html' with items=item.items %}
+      {% endif %}
     {% endif %}
   {% endfor %}
 </ul>

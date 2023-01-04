@@ -32,9 +32,6 @@ class Item(models.Model):
         verbose_name=_('Слаг'),
         unique=True
     )
-    url = models.URLField(
-        verbose_name=_('Ссылка')
-    )
     menu = models.ForeignKey(
         Menu,
         verbose_name=_('Меню'),

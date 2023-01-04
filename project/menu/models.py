@@ -25,8 +25,7 @@ class Menu(models.Model):
 class Item(models.Model):
     name = models.CharField(
         verbose_name=_('Имя'),
-        max_length=100,
-        unique=True
+        max_length=100
     )
     slug = models.SlugField(
         verbose_name=_('Слаг'),

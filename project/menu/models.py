@@ -50,6 +50,12 @@ class Item(models.Model):
         ordering = ('name', )
         verbose_name = _('Пункт меню')
         verbose_name_plural = _('Пункты меню')
+        constraints = [
+            models.UniqueConstraint(
+                fields=('slug', 'menu'),
+                name='slug_menu_uniquetogether'
+            )
+        ]
 
     def __str__(self):
         return f'{self.menu}: {self.name}'
